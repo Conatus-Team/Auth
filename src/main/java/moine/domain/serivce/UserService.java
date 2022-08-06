@@ -6,6 +6,8 @@ import moine.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -42,6 +44,13 @@ public class UserService {
             return null;
         }
 
+    }
+
+    // 모든 사용자 가져오기
+    public List<User> getUsers () {
+        List<User> list = userRepository.findAll();
+
+        return list;
     }
 
 }

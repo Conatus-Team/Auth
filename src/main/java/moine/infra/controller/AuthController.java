@@ -5,11 +5,10 @@ import moine.domain.dto.SignUpDto;
 import moine.domain.entity.User;
 import moine.domain.repository.UserRepository;
 import moine.domain.serivce.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @RestController
 
@@ -20,6 +19,17 @@ public class AuthController {
     UserRepository authUserInfoRepository;
 
     private final UserService userService;
+
+    // 전체 사용자 목록
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        List<User> users = userService.getUsers();
+
+        return users;
+    }
+
+
+
 
     // 회원가입
     @PostMapping("/signUp")
@@ -33,4 +43,6 @@ public class AuthController {
 
         return newUser;
     }
+
+
 }
