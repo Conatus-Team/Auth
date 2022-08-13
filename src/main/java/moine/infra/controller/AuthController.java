@@ -32,6 +32,7 @@ public class AuthController {
 
 
     // 회원가입
+    // .
     @PostMapping("/signUp")
     public User postUser(@RequestBody SignUpDto signUpDto) {
         System.out.println("signUpDto = " + signUpDto);
