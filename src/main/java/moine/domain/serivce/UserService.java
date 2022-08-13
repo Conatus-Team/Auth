@@ -1,6 +1,7 @@
 package moine.domain.serivce;
 
 import lombok.RequiredArgsConstructor;
+import moine.domain.dto.SimpleDto;
 import moine.domain.entity.User;
 import moine.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +25,25 @@ public class UserService {
         return true;
     }
 
-    // user 추가
-    public User postSignUp(Long userId, String userName, String password) {
+    // 회원가입
+    public SimpleDto postSignUp(String email, String password, String userName, String userNickname) {
 
-        if(validationUser(userId)){
+        if(!userRepository.existsByEmail(email)){
             // create
             User newUser = new User();
 
-            newUser.setUserId(userId);
-            newUser.setUserName(userName);
+            newUser.setEmail(email);
             newUser.setPassword(password);
+            newUser.setUserName(userName);
+            newUser.setUserName(userNickname);
 
-            userRepository.save(newUser);
 
-            return newUser;
+            User result = userRepository.save(newUser);
+
+            return getSimpleUser(result);
         }
         else{
-
+            // 이미 존재하는 유저
             return null;
         }
 
@@ -51,6 +54,17 @@ public class UserService {
         List<User> list = userRepository.findAll();
 
         return list;
+    }
+
+    // 리턴 형태
+    public SimpleDto getSimpleUser(User user) {
+        SimpleDto simpleDto = new SimpleDto();
+        simpleDto.setUserId(user.getUserId());
+        simpleDto.setEmail(user.getEmail());
+        simpleDto.setUserName(user.getUserName());
+        simpleDto.setUserNickname(user.getUserNickname());
+
+        return simpleDto;
     }
 
 }

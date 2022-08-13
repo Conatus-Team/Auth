@@ -2,6 +2,7 @@ package moine.infra.controller;
 
 import lombok.RequiredArgsConstructor;
 import moine.domain.dto.SignUpDto;
+import moine.domain.dto.SimpleDto;
 import moine.domain.entity.User;
 import moine.domain.repository.UserRepository;
 import moine.domain.serivce.UserService;
@@ -32,18 +33,21 @@ public class AuthController {
 
 
     // 회원가입
-    // .
     @PostMapping("/signUp")
-    public User postUser(@RequestBody SignUpDto signUpDto) {
+    public SimpleDto postUser(@RequestBody SignUpDto signUpDto) {
         System.out.println("signUpDto = " + signUpDto);
-        User newUser = userService.postSignUp(
-                signUpDto.getUserId(),
+        SimpleDto newUser = userService.postSignUp(
+                signUpDto.getEmail(),
+                signUpDto.getPassword(),
                 signUpDto.getUserName(),
-                signUpDto.getPassword()
+                signUpDto.getUserNickname()
         );
 
         return newUser;
     }
+
+    // 로그인
+    // 브라우저 session 스토리지에 user 전달
 
 
 }

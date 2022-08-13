@@ -1,20 +1,15 @@
 package moine.domain.dto;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SignUpDto {
-
+public class SimpleDto {
+    private Long userId;
     private String userName;
     private String email;
-    private String password;
     private String userNickname;
-
 }

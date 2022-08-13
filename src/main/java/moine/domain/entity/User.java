@@ -17,9 +17,7 @@ public class User  {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-
-    @Column(name="user_id", nullable = false, length = 100)
+    @Column(name="user_id")
     private Long userId;
 
     @Column(name="user_name", nullable = false, length = 100)
@@ -28,26 +26,11 @@ public class User  {
     @Column(name="user_nickname",nullable = true, length = 100)
     private String userNickname;
 
-    @Column(name="email",nullable = true, length = 100)
+    @Column(name="email",nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(name="password",nullable = false, length = 100)
     private String password;
-
-    @PostPersist
-    public void onPostPersist(){
-        SignedUp signedUp = new SignedUp();
-        BeanUtils.copyProperties(this, signedUp);
-        signedUp.publishAfterCommit();
-
-    }
-
-    public static UserRepository repository(){
-        UserRepository authUserInfoRepository = AuthApplication.applicationContext.getBean(UserRepository.class);
-        return authUserInfoRepository;
-    }
-
-
 
 
 }
