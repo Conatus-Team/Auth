@@ -43,11 +43,31 @@ public class UserService {
             return getSimpleUser(result);
         }
         else{
-            // 이미 존재하는 유저
-            return null;
+            // 이미 존재하는 이메일
+
         }
+        return null;
 
     }
+
+    // 로그인
+    public SimpleDto getLoninUser(String email, String password) {
+        if(userRepository.existsByEmail(email)){
+            List<User> user = userRepository.findByEmailAndPassword(email, password);
+            if(!user.isEmpty()){
+                return getSimpleUser(user.get(0));
+            }
+            else{
+                // 잘못된 비밀번호
+            }
+        }
+        else{
+           // 존재하지 않는 이메일
+        }
+
+        return null;
+    }
+
 
     // 모든 사용자 가져오기
     public List<User> getUsers () {

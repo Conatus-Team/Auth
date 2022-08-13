@@ -1,6 +1,7 @@
 package moine.infra.controller;
 
 import lombok.RequiredArgsConstructor;
+import moine.domain.dto.LoginDto;
 import moine.domain.dto.SignUpDto;
 import moine.domain.dto.SimpleDto;
 import moine.domain.entity.User;
@@ -30,10 +31,8 @@ public class AuthController {
     }
 
 
-
-
     // 회원가입
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public SimpleDto postUser(@RequestBody SignUpDto signUpDto) {
         System.out.println("signUpDto = " + signUpDto);
         SimpleDto newUser = userService.postSignUp(
@@ -48,6 +47,14 @@ public class AuthController {
 
     // 로그인
     // 브라우저 session 스토리지에 user 전달
+    @PostMapping("/login")
+    public SimpleDto postLoginUser(@RequestBody LoginDto loginDto){
+        SimpleDto user = userService.getLoninUser(
+                loginDto.getEmail(),
+                loginDto.getPassword()
+        );
 
+        return user;
+    }
 
 }
