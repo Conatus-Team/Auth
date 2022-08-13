@@ -16,13 +16,16 @@ public class UserService {
     private UserRepository userRepository;
 
     // validation
-    public boolean validationUser(Long userId) {
+    public boolean existUser(Long userId) {
         // 존재하는 userId
-        if(userRepository.existsByUserId(userId)){
-            return false;
-        }
+        return userRepository.existsByUserId(userId);
+    }
 
-        return true;
+    // 모든 사용자 가져오기
+    public List<User> getUsers () {
+        List<User> list = userRepository.findAll();
+
+        return list;
     }
 
     // 회원가입
@@ -51,7 +54,7 @@ public class UserService {
     }
 
     // 로그인
-    public SimpleDto getLoninUser(String email, String password) {
+    public SimpleDto getLoginUser(String email, String password) {
         if(userRepository.existsByEmail(email)){
             List<User> user = userRepository.findByEmailAndPassword(email, password);
             if(!user.isEmpty()){
@@ -69,11 +72,17 @@ public class UserService {
     }
 
 
-    // 모든 사용자 가져오기
-    public List<User> getUsers () {
-        List<User> list = userRepository.findAll();
+    // 마이페이지
+    public SimpleDto getMyPageUser(Long userId){
+        if(existUser(userId)){
+            User user = userRepository.findById(userId).get();
+            return getSimpleUser(user);
+        }
+        else {
+            // 존재하지 않는 userId
+        }
+        return null;
 
-        return list;
     }
 
     // 리턴 형태

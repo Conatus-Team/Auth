@@ -49,12 +49,22 @@ public class AuthController {
     // 브라우저 session 스토리지에 user 전달
     @PostMapping("/login")
     public SimpleDto postLoginUser(@RequestBody LoginDto loginDto){
-        SimpleDto user = userService.getLoninUser(
+        SimpleDto user = userService.getLoginUser(
                 loginDto.getEmail(),
                 loginDto.getPassword()
         );
 
         return user;
     }
+
+    // 마이페이지
+    // header에 값으로 key = Authorization, value = 1 로 테스트
+    // Authorization는 userId를 의미
+    @GetMapping("/mypage")
+    public SimpleDto getMypage(@RequestHeader Long Authorization){
+        SimpleDto user = userService.getMyPageUser(Authorization);
+        return user;
+    }
+
 
 }
