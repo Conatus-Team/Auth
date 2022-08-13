@@ -32,5 +32,14 @@ public class User  {
     @Column(name="password",nullable = false, length = 100)
     private String password;
 
+    @PostPersist
+    public void onPostPersist() {
+        // DB에 유저 create 후 kafka에 SignedUp 이벤트 발송
+        SignedUp signedUp = new SignedUp();
+        BeanUtils.copyProperties(this, signedUp);
+        System.out.println("\n #### publish message #### \n" + signedUp);
+        signedUp.publishAfterCommit();
+
+    }
 
 }

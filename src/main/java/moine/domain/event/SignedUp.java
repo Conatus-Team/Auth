@@ -9,11 +9,12 @@ import java.util.Date;
 @Setter
 public class SignedUp extends AbstractEvent {
 
-    private Long id;
+
     private Long userId;
-    private Boolean gender;
-    private Date birth;
-    private String location;
+    private String email;
+    private String password;
+    private String userName;
+    private String userNickname;
 
     public SignedUp(){
         super();
