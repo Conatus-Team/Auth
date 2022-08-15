@@ -20,6 +20,10 @@ public class User extends BaseTimeEntity {
     @Column(name="user_id")
     private Long userId;
 
+    // soft delete
+    @Column(name="is_deleted", nullable = false)
+    private boolean isDeleted = Boolean.FALSE; // 디폴트 false
+
     @Column(name="user_name", nullable = false, length = 100)
     private String userName;
 
