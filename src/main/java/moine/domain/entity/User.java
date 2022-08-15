@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 @Setter
 @Entity
 @Table(name="user")
-public class User  {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -37,9 +37,14 @@ public class User  {
         // DB에 유저 create 후 kafka에 SignedUp 이벤트 발송
         SignedUp signedUp = new SignedUp();
         BeanUtils.copyProperties(this, signedUp);
-        System.out.println("\n #### publish message #### \n" + signedUp);
         signedUp.publishAfterCommit();
 
+        System.out.println("====================================");
+        System.out.println("====================================");
+        System.out.println("회원가입 이벤트 발송 성공!");
+        System.out.println(signedUp);
+        System.out.println("====================================");
+        System.out.println("====================================");
     }
 
 }
