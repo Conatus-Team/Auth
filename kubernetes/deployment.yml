@@ -1,37 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Auth
+  name: auth-backend
   labels:
-    app: Auth
+    app: auth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Auth
+      app: auth
   template:
     metadata:
       labels:
-        app: Auth
+        app: auth
     spec:
       containers:
-        - name: Auth
-          image: username/Auth:latest
+        - name: auth
+          image: 357806352922.dkr.ecr.ap-northeast-2.amazonaws.com/moine_auth:latest
           ports:
             - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 10
-          livenessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 120
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 5
+          env:
+            - name: DATABASE_USERID
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-configmap
+                  key: database_userid
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-configmap
+                  key: database_password
+            - name: KAFKA_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: auth-configmap
+                  key: kafka_endpoint
+#          readinessProbe:
+#            httpGet:
+#              path: '/actuator/health'
+#              port: 8080
+#            initialDelaySeconds: 10
+#            timeoutSeconds: 2
+#            periodSeconds: 5
+#            failureThreshold: 10
+#          livenessProbe:
+#            httpGet:
+#              path: '/actuator/health'
+#              port: 8080
+#            initialDelaySeconds: 120
+#            timeoutSeconds: 2
+#            periodSeconds: 5
+#            failureThreshold: 5
