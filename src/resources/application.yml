@@ -70,6 +70,14 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      bindings:
+        event-in:
+          group: Group
+          destination: conatus
+          contentType: application/json
+        event-out:
+          destination: conatus
+          contentType: application/json
 logging:
   level:
     org.hibernate.type: trace
