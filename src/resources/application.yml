@@ -44,20 +44,32 @@ spring:
 #        event-out:
 #          destination: conatus
 #          contentType: application/json
-spring.cloud.stream:
-  kafka:
-    binder:
-      brokers: moine-kafka.moine.svc.cluster.local:9092
-  bindings:
-    input:
-      destination: conatus
-      contentType: application/json
-      group: Group
-    output:
-      destination: conatus
-      contentType: application/json
-      group: Group
-
+#spring.cloud.stream:
+#  kafka:
+#    binder:
+#      brokers: moine-kafka.moine.svc.cluster.local:9092
+#  bindings:
+#    input:
+#      destination: conatus
+#      contentType: application/json
+#      group: Group
+#    output:
+#      destination: conatus
+#      contentType: application/json
+#      group: Group
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: moine-kafka.moine.svc.cluster.local:9092
+        streams:
+          binder:
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
 logging:
   level:
     org.hibernate.type: trace
