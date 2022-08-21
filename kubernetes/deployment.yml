@@ -21,10 +21,10 @@ spec:
             - containerPort: 8080
           env:
             - name: DATABASE_URL
-                valueFrom:
-                  configMapKeyRef:
-                    name: moine-backend-configmap
-                    key: auth_database_url
+              valueFrom:
+                configMapKeyRef:
+                  name: moine-backend-configmap
+                  key: auth_database_url
             - name: DATABASE_USERID
               valueFrom:
                 configMapKeyRef:
