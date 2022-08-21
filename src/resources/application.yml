@@ -73,10 +73,10 @@ spring:
       bindings:
         event-in:
           group: Group
-          destination: conatus
+          destination: moine
           contentType: application/json
-        event-out:
-          destination: conatus
+        authTopic:
+          destination: moine
           contentType: application/json
 logging:
   level:
