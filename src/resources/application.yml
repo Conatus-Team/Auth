@@ -77,7 +77,7 @@ spring:
           group: auth
           destination: moine
           contentType: application/json
-        event-out:
+        authTopic:
           destination: moine
           contentType: application/json
 logging:
