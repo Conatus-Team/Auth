@@ -72,7 +72,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: auth
+          group: Auth
           destination: moine
           contentType: application/json
         authTopic:
