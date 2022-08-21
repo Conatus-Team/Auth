@@ -61,7 +61,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: moine-kafka.moine.svc.cluster.local:9092
+          brokers: moine-kafka.kafka.svc.cluster.local:9092
         streams:
           binder:
             configuration:
