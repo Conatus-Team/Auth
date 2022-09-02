@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @RestController
-
 @RequiredArgsConstructor
 @RequestMapping(value="/auth")
 public class AuthController {
