@@ -68,6 +68,4 @@ secrets.yml
 node_modules
 .dist/
 .pem
-
-
-application.yml
+src/main/resources/application.yml
