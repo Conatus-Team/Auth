@@ -1,7 +1,7 @@
 package moine.infra;
 
 import moine.AuthApplication;
-import moine.config.kafka.KafkaProcessor;
+//import moine.config.kafka.KafkaProcessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.MessageChannel;
@@ -45,13 +45,13 @@ public class AbstractEvent {
             /**
              * spring streams 방식
              */
-            KafkaProcessor processor = AuthApplication.applicationContext.getBean(KafkaProcessor.class);
-            MessageChannel outputChannel = processor.outboundTopic();
-
-            outputChannel.send(MessageBuilder
-                    .withPayload(json)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
+//            KafkaProcessor processor = AuthApplication.applicationContext.getBean(KafkaProcessor.class);
+//            MessageChannel outputChannel = processor.outboundTopic();
+//
+//            outputChannel.send(MessageBuilder
+//                    .withPayload(json)
+//                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+//                    .build());
 
         }
     }
