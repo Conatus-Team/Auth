@@ -2,15 +2,14 @@ package moine.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import moine.AuthApplication;
+
 import javax.persistence.*;
 
+import moine.domain.middle.PostMiddleService;
+import moine.domain.middle.Url;
 import moine.domain.event.SignedUp;
-import moine.domain.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -57,19 +56,8 @@ public class User extends BaseTimeEntity {
         System.out.println("====================================");
 
         // Middle 서버로 http request
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<SignedUp> entity = new HttpEntity<>(signedUp, headers);
-
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(
-                "http://localhost:8080/middle/SignedUp", //{요청할 서버 주소}
-                HttpMethod.POST, //{요청할 방식}
-                entity, // {요청할 때 보낼 데이터}
-                String.class
-        );
+        PostMiddleService postMiddleService = new PostMiddleService();
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/SignedUp", signedUp);
 
     }
 
