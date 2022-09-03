@@ -2,12 +2,17 @@ package moine.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import moine.AuthApplication;
+
 import javax.persistence.*;
 
+import moine.domain.middle.PostMiddleService;
+import moine.domain.middle.Url;
 import moine.domain.event.SignedUp;
-import moine.domain.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 
 @Getter
 @Setter
@@ -49,6 +54,13 @@ public class User extends BaseTimeEntity {
         System.out.println(signedUp);
         System.out.println("====================================");
         System.out.println("====================================");
+
+        // Middle 서버로 http request
+        PostMiddleService postMiddleService = new PostMiddleService();
+        postMiddleService.sendTo(Url.MIDDLE.getUrl() + "/SignedUp", signedUp);
+
     }
+
+
 
 }
