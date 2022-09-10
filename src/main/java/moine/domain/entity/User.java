@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,6 +52,7 @@ public class User extends BaseTimeEntity {
     @Column(name="password",nullable = false, length = 100)
     private String password;
 
+    @Async
     @PostPersist
     public void onPostPersist() {
 
